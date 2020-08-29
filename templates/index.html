@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Airbnb Price Prediction</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <style>
+        *{
+            padding: 0px;
+            margin: 0px;
+        }
+
+        body {
+            background-image: #FFB6C1;
+        }
+
+        .card-header{
+            text-align: center;
+        }
+
+        button{
+            padding: 15px;
+            margin: 40px 0;
+        }
+
+        h1{
+            font: bold sans-serif ;
+        }
+
+        label{
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        }
+
+        .result{
+            font-size: 50px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="offset-sm-3 col-sm-6">
+        <div class="card text-white bg-primary">
+            
+            <div class="card-header">
+                <h1>Airbnb Price Prediction</h1>
+            </div>
+    
+            <div class="card-body">
+                <form action="{{ url_for('predict')}}" method="post">
+
+                    <div class="form-group">
+                        <label>Neighbourhood</label>
+                        <select name="neighbourhood_cleansed" id="neighbourhood_cleansed" class="form-control" required="required">
+                              <option value="0">Adachi Ku</option>
+							  <option value="1">Akiruno Shi</option>
+							  <option value="2">Akisihma Shi</option>
+							  <option value="3">Kita Ku</option>
+							  <option value="4">Bunkyo Ku</option>
+							  <option value="5">Chiyoda Ku</option>
+							  <option value="6">Komae Shi</option>
+							  <option value="7">Chuo Ku</option>
+							  <option value="8">Edogawa Ku</option>
+							  <option value="9">Musashimurayama Shi</option>
+							  <option value="10">Ome Shi</option>
+							  <option value="11">Hachijo Machi</option>
+							  <option value="12">Hachioji Shi</option>
+							  <option value="13">Hamura Shi</option>
+							  <option value="14">Hinohara Shi</option>
+							  <option value="15">Higashimurayama Shi</option>
+							  <option value="16">Hino Shi</option>
+							  <option value="17">Tama Shi</option>
+							  <option value="18">Itabashi Shi</option>
+							  <option value="19">Katsushika Ku</option>
+							  <option value="20">Arakawa Ku</option>
+							  <option value="21">Kodaira Shi</option>
+							  <option value="22">Koganei Shi</option>
+							  <option value="23">Chofu Shi</option>
+							  <option value="24">Kokubunji Shi</option>
+							  <option value="25">Koto Ku</option>
+							  <option value="26">Kunitachi Shi</option>
+							  <option value="27">Machida Shi</option>
+							  <option value="28">Meguro Ku</option>
+							  <option value="29">Minato Ku</option>
+							  <option value="30">Mitaka Shi</option>
+							  <option value="31">Kuchu Shi</option>
+							  <option value="32">Musashino Shi</option>
+							  <option value="33">Nakano Ku</option>
+							  <option value="34">Nerima Ku</option>
+							  <option value="35">Okutama Machi</option>
+							  <option value="36">Nishitokyo Shi</option>
+							  <option value="37">Ogasawara Mura</option>
+							  <option value="38">Niijima Mura</option>
+							  <option value="39">Higashikurume Shi</option>
+							  <option value="40">Oshima Machi</option>
+							  <option value="41">Ota Ku</option>
+							  <option value="42">Setagoya Ku</option>
+							  <option value="43">Shibuya Ku</option>
+							  <option value="44">Shinagawa Ku</option>
+							  <option value="45">Shinjuku Ku</option>
+							  <option value="46">Suginami Ku</option>
+							  <option value="47">Sumida Ku</option>
+							  <option value="48">Tachikawa Shi</option>
+							  <option value="49">Taito Ku</option>
+							  <option value="50">Fussa Shi</option>
+							  <option value="51">Toshima Ku</option>						  
+						</select>
+                    </div>
+					
+					<div class="form-group">
+                        <label>Property Type</label>
+                        <select name="property_type" id="property_type" class="form-control" required="required">
+                              <option value="0">Aparthotel</option>
+							  <option value="1">Apartment</option>
+							  <option value="2">Bed and Breakfast</option>
+							  <option value="3">Boutique hotel</option>
+							  <option value="4">Tent</option>
+							  <option value="5">Cabin</option>
+							  <option value="6">Camper/RV</option>
+							  <option value="7">Condominium</option>
+							  <option value="8">Nature lodge</option>
+							  <option value="9">Earth house</option>
+							  <option value="10">Guest suite</option>
+							  <option value="11">Guesthouse</option>
+							  <option value="12">Hostel</option>
+							  <option value="13">Hotel</option>
+							  <option value="14">House</option>
+							  <option value="15">Hut</option>
+							  <option value="16">Loft</option>
+							  <option value="17">Dorm</option>
+							  <option value="18">Other</option>
+							  <option value="19">Ryokan</option>
+							  <option value="20">Serviced apartment</option>
+							  <option value="21">Bungalow</option>
+							  <option value="22">Tiny house</option>
+							  <option value="23">Town house</option>
+							  <option value="24">Villa</option>
+						</select>
+                    </div>
+					
+					<div class="form-group">
+                        <label>Room type</label>
+                        <select name="room_type" id="room_type" class="form-control" required="required">
+                              <option value="0">Entire room</option>
+							  <option value="1">Private room</option>
+                              <option value="2">Hotel room</option>
+	                          <option value="3">Shared room</option>
+                        </select>
+                    </div>
+					
+					<div class="form-group">
+                        <label>Accommodates</label>
+                        <input id="accommodates" class="form-control" name="accommodates" placeholder="Enter How Many People Will Stay" type="number ">
+                    </div> 
+                    
+                    <div class="form-group">
+                        <label>Bathrooms</label>
+                        <input id="bathrooms" class="form-control" name="bathrooms" placeholder="Enter The Number of Bathrooms" required="required">
+                    </div>
+										
+                    <div class="form-group">
+                        <label>Bedrooms</label>
+                        <input id="bedrooms" name="bedrooms" class="form-control" placeholder="Enter The Number of Bedrooms" required="required">
+                    </div>
+					
+					<div class="form-group">
+                        <label>Beds</label>
+                        <input id="beds" name="beds" class="form-control" placeholder="Enter The Number of Beds" required="required">
+                    </div>
+					
+					<div class="form-group">
+                        <label>Bed type</label>
+                        <select name="bed_type" id="bed_type" class="form-control" required="required">
+							  <option value="0">Air bed</option>
+							  <option value="1">Futon</option>
+							  <option value="2">Pull-out sofa</option>
+							  <option value="3">Real bed</option>
+                        </select>
+                    </div>
+					
+					<div class="form-group">
+                        <label>Cleaning fee</label>
+                        <input id="cleaning_fee" name="cleaning_fee" class="form-control" placeholder="Enter Additional Cleaning Fee in Yen" required="required">
+                    </div>
+					
+					<div class="form-group">
+                        <label>Guests Included</label>
+                        <input id="guests_included" name="guests_included" class="form-control" placeholder="Enter How Many Guest" required="required">
+                    </div>
+					
+					<div class="form-group">
+                        <label>Extra People</label>
+                        <input id="extra_people" name="extra_people" class="form-control" placeholder="Enter Additional Fees for Extra People" required="required">
+                    </div>
+					
+					<div class="form-group">
+                        <label>Minimum Nights</label> 
+                        <input id="minimum_nights" name="minimum_nights" class="form-control" placeholder="Enter Minimum Nights Will Stay" required="required">
+                    </div>
+                    					    
+                   <button id="sub" type="submit" class="btn btn-block btn-warning" >Check Price</button> 
+                </form>
+            </div>
+
+            <h3 class="result">{{ prediction_text }}<h3>
+
+        </div>
+    </div> 
+
+</body>
+</html>
